@@ -231,7 +231,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/06/22/TCP-IP%E5%AD%A6%E4%B9%A0/" target="_self">
         <div>
-          TCP&#x2F;IP总结1. TCP三次握手过程？  三次握手可看作是两次分别确认，客户端调用connect函数发起连接请求，服务器收到后，放到服务器的Syn队列里，处理这个包的时候，设置Ack为Syn seq+1，并且有自己的一个Syn num，客户端收到服务器的回包之后，设置Ack为服务器的Syn num+1，连接建立，该连接放到Accept队列里面。 2. TCP四次挥手过程？3. 为什么
+          TCP&#x2F;IP总结1. TCP三次握手过程？  三次握手可看作是两次分别确认，客户端调用connect函数发起连接请求，服务器收到后，放到服务器的backlog队列里，处理这个包的时候，设置Ack为Syn seq+1，并且有自己的一个Syn num，客户端收到服务器的回包之后，设置Ack为服务器的Syn num+1，连接建立，该连接放到Accept队列里面。 1.1 半连接队列与全连接队列
         </div>
       </a>
 
