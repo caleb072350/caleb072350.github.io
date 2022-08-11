@@ -16,29 +16,22 @@
   <meta name="author" content="Caleb072350">
   <meta name="keywords" content="">
   
-    <meta name="description" content="TCP&#x2F;IP总结1. TCP三次握手过程？  三次握手可看作是两次分别确认，客户端调用connect函数发起连接请求，服务器收到后，放到服务器的backlog队列里，处理这个包的时候，设置Ack为Syn seq+1，并且有自己的一个Syn num，客户端收到服务器的回包之后，设置Ack为服务器的Syn num+1，连接建立，该连接放到Accept队列里面。 1.1 半连接队列与全连接队列">
+    <meta name="description" content="std::bind &amp; std::ref的用法std::bind 是用来给函数绑定参数的，std::bind总是拷贝传值，调用者可以使用std::ref来实现传引用。 有3个规则：  std::bind总是使用值拷贝的形式传参，不管行参是否声明为引用。 std::bind可以通过std::ref来传引用 当std::bind通过std::ref来传递引用的时候，如果形参声明为值类型，传递的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TCP&#x2F;IP学习">
-<meta property="og:url" content="https://caleb072350.github.io/2022/06/22/TCP-IP%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:title" content="std::bind &amp; std::ref">
+<meta property="og:url" content="https://caleb072350.github.io/2022/08/11/std-bind-std-ref/index.html">
 <meta property="og:site_name" content="Caleb072350">
-<meta property="og:description" content="TCP&#x2F;IP总结1. TCP三次握手过程？  三次握手可看作是两次分别确认，客户端调用connect函数发起连接请求，服务器收到后，放到服务器的backlog队列里，处理这个包的时候，设置Ack为Syn seq+1，并且有自己的一个Syn num，客户端收到服务器的回包之后，设置Ack为服务器的Syn num+1，连接建立，该连接放到Accept队列里面。 1.1 半连接队列与全连接队列">
+<meta property="og:description" content="std::bind &amp; std::ref的用法std::bind 是用来给函数绑定参数的，std::bind总是拷贝传值，调用者可以使用std::ref来实现传引用。 有3个规则：  std::bind总是使用值拷贝的形式传参，不管行参是否声明为引用。 std::bind可以通过std::ref来传引用 当std::bind通过std::ref来传递引用的时候，如果形参声明为值类型，传递的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://caleb072350.github.io/2022/06/22/TCP-IP%E5%AD%A6%E4%B9%A0/1.png">
-<meta property="og:image" content="https://caleb072350.github.io/2022/06/22/TCP-IP%E5%AD%A6%E4%B9%A0/2.png">
-<meta property="og:image" content="https://caleb072350.github.io/2022/06/22/TCP-IP%E5%AD%A6%E4%B9%A0/3.png">
-<meta property="og:image" content="https://caleb072350.github.io/2022/06/22/TCP-IP%E5%AD%A6%E4%B9%A0/4.png">
-<meta property="og:image" content="https://caleb072350.github.io/2022/06/22/TCP-IP%E5%AD%A6%E4%B9%A0/5.png">
-<meta property="og:image" content="https://caleb072350.github.io/2022/06/22/TCP-IP%E5%AD%A6%E4%B9%A0/6.png">
-<meta property="article:published_time" content="2022-06-22T06:48:09.000Z">
-<meta property="article:modified_time" content="2022-06-22T11:33:00.504Z">
+<meta property="article:published_time" content="2022-08-11T13:23:50.000Z">
+<meta property="article:modified_time" content="2022-08-11T13:36:03.169Z">
 <meta property="article:author" content="Caleb072350">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://caleb072350.github.io/2022/06/22/TCP-IP%E5%AD%A6%E4%B9%A0/1.png">
   
   
   
-  <title>TCP/IP学习 - Caleb072350</title>
+  <title>std::bind &amp; std::ref - Caleb072350</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -201,7 +194,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="TCP/IP学习"></span>
+            <span id="subtitle" data-typed-text="std::bind &amp; std::ref"></span>
           
         </div>
 
@@ -212,8 +205,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-06-22 14:48" pubdate>
-          2022年6月22日 下午
+        <time datetime="2022-08-11 21:23" pubdate>
+          2022年8月11日 晚上
         </time>
       </span>
     
@@ -224,7 +217,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k 字
+          602 字
         
       </span>
     
@@ -235,7 +228,7 @@
         
         
         
-          20 分钟
+          6 分钟
         
       </span>
     
@@ -281,61 +274,20 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">TCP/IP学习</h1>
+            <h1 style="display: none">std::bind &amp; std::ref</h1>
             
             <div class="markdown-body">
               
-              <h1 id="TCP-x2F-IP总结"><a href="#TCP-x2F-IP总结" class="headerlink" title="TCP&#x2F;IP总结"></a>TCP&#x2F;IP总结</h1><h2 id="1-TCP三次握手过程？"><a href="#1-TCP三次握手过程？" class="headerlink" title="1. TCP三次握手过程？"></a>1. TCP三次握手过程？</h2><img src="/2022/06/22/TCP-IP%E5%AD%A6%E4%B9%A0/1.png" srcset="/img/loading.gif" lazyload class="" title="三次握手过程">
-
-<p>三次握手可看作是两次分别确认，客户端调用connect函数发起连接请求，服务器收到后，放到服务器的backlog队列里，处理这个包的时候，设置Ack为Syn seq+1，并且有自己的一个Syn num，客户端收到服务器的回包之后，设置Ack为服务器的Syn num+1，连接建立，该连接放到Accept队列里面。</p>
-<h3 id="1-1-半连接队列与全连接队列"><a href="#1-1-半连接队列与全连接队列" class="headerlink" title="1.1 半连接队列与全连接队列"></a>1.1 半连接队列与全连接队列</h3><p>服务器第一次收到客户端的SYN之后，就会处于SYN_RCVD状态，此时双方还没有完全建立连接，服务器会把这种状态下的请求连接放到backlog队列里，这个队列就是<strong>半连接队列</strong>。当三次握手完成，连接就会放到<strong>全连接队列</strong>里。如果队列满了就会出现丢包现象。</p>
-<h3 id="1-2-如果第三次握手丢了，客户端服务端会如何处理"><a href="#1-2-如果第三次握手丢了，客户端服务端会如何处理" class="headerlink" title="1.2 如果第三次握手丢了，客户端服务端会如何处理"></a>1.2 如果第三次握手丢了，客户端服务端会如何处理</h3><p>服务器发送完SYN-ACK包之后，如果未收到客户端响应的确认包，那么服务器将进行首次重传，如果等待一段时间后，仍未收到客户端的确认包，进行第二次重传。如果重传次数超过了系统规定的最大重传次数，系统将该连接从半连接队列里删除。</p>
-<p>注意，每次重传的时间不一定相等，一般会是指数增长，例如时间间隔为1s，2s，4s，8s  ···</p>
-<h2 id="2-TCP四次挥手过程？"><a href="#2-TCP四次挥手过程？" class="headerlink" title="2. TCP四次挥手过程？"></a>2. TCP四次挥手过程？</h2><img src="/2022/06/22/TCP-IP%E5%AD%A6%E4%B9%A0/2.png" srcset="/img/loading.gif" lazyload class="" title="四次挥手过程">
-
-<p>1）<strong>第一次挥手</strong>：客户端发送一个FIN报文，并停止再发送数据，主动关闭TCP连接。此时客户端处于FIN_WAIT1状态，等待服务端确认。</p>
-<p>2）<strong>第二次挥手</strong>：服务端收到FIN报文后，发送ACK报文，服务器进入CLOSE_WAIT状态。此时的TCP连接处于半关闭状态。客户端收到服务端的ACK后，进入FIN_WAIT2状态，等待服务端那边发起关闭连接。</p>
-<p>3）<strong>第三次挥手</strong>：如果服务器数据发送完毕，发送FIN报文，服务端进入LAST_ACK状态，等待客户端的确认。</p>
-<p>4）<strong>第四次挥手</strong>：客户端发送ACK报文，客户端进入<strong>TIME_WAIT</strong>状态。</p>
-<h2 id="3-为什么建立连接需要三次握手，而断开连接需要四次握手？"><a href="#3-为什么建立连接需要三次握手，而断开连接需要四次握手？" class="headerlink" title="3. 为什么建立连接需要三次握手，而断开连接需要四次握手？"></a>3. 为什么建立连接需要三次握手，而断开连接需要四次握手？</h2><p>三次握手的目的是建立可靠的通信信道，最主要目的就是<strong>双方确认自己与对方的发送和接收都是正常的</strong>。只有经过三次握手才能确认自己与对方的发送与接收是正常的。</p>
-<img src="/2022/06/22/TCP-IP%E5%AD%A6%E4%B9%A0/3.png" srcset="/img/loading.gif" lazyload class="" title="三次握手过程">
-
-<p>三次握手另外一个功能是客户端和服务器交换ISN（Initial Sequence Number），以便让对方知道接下来接收的数据的序列号。ISN随时间变化，每个连接都使用不同的ISN，防止攻击者猜到ISN而攻击。</p>
-<h3 id="3-1-三次握手过程中可以携带数据吗？"><a href="#3-1-三次握手过程中可以携带数据吗？" class="headerlink" title="3.1 三次握手过程中可以携带数据吗？"></a>3.1 三次握手过程中可以携带数据吗？</h3><p>第三次握手的时候，可以携带数据，第一次、第二次握手不可以。</p>
-<p>假如第一次握手可以携带数据的话，如果有人恶意攻击服务器，那他每次都在第一次握手的SYN报文中放入大量的数据，然后疯狂发SYN报文的话，会让服务器花费很长时间、内存空间来接收这些报文。</p>
-<p>而第三次握手的话，此时客户端已处于ESTABLISHED状态，可以正常发送&#x2F;携带数据了。</p>
-<h2 id="4-TIME-WAIT状态持续时间及原因？"><a href="#4-TIME-WAIT状态持续时间及原因？" class="headerlink" title="4. TIME_WAIT状态持续时间及原因？"></a>4. TIME_WAIT状态持续时间及原因？</h2><p><strong>TIME_WAIT</strong>：等待足够长时间以确保服务端接收到ACK报文。等待计时器设置2MSL(一个报文的来回时间)，如果服务器在这段时间内没有收到ACK，就会重新发送FIN报文，客户端接收到之后，就知道之前的ACK报文丢了，然后再次发起ACK报文。服务器收到ACK之后，关闭连接，进入CLOSED状态。</p>
-<p>取等待时间的最大值，<strong>以应对最坏的情况发生</strong>，这个最坏情况是：</p>
-<p>去向ACK消息最大存活时间（MSL) + 来向FIN消息的最大存活时间(MSL)。</p>
-<h2 id="5-TCP首部长度，有哪些字段？"><a href="#5-TCP首部长度，有哪些字段？" class="headerlink" title="5. TCP首部长度，有哪些字段？"></a>5. TCP首部长度，有哪些字段？</h2><img src="/2022/06/22/TCP-IP%E5%AD%A6%E4%B9%A0/4.png" srcset="/img/loading.gif" lazyload class="" title="TCP头部字段">
-
-<p>TCP头部默认是20字节,没有ip字段，端口字段来区分不同服务</p>
-<h2 id="6-TCP在listen时的参数backlog的意义？"><a href="#6-TCP在listen时的参数backlog的意义？" class="headerlink" title="6. TCP在listen时的参数backlog的意义？"></a>6. TCP在listen时的参数backlog的意义？</h2><p>Listen()函数的backlog参数，即是三次握手中backlog队列（半连接队列）的长度。</p>
-<h2 id="7-Accept发生在三次握手的哪一步？"><a href="#7-Accept发生在三次握手的哪一步？" class="headerlink" title="7. Accept发生在三次握手的哪一步？"></a>7. Accept发生在三次握手的哪一步？</h2><p>Accept不参与三次握手，服务端只需要listen，客户端connect是与服务器三次握手，connect完成之后，服务器都不需要写accept，客户端就可以发送数据了。服务器Accept的时候，其实是从内核的Accept队列（全连接队列）里取一个连接，如果这个队列为空，则进程阻塞。如果accept返回说明成功取到一个连接，返回到应用层。</p>
-<h2 id="8-三次握手过程中有哪些不安全性？"><a href="#8-三次握手过程中有哪些不安全性？" class="headerlink" title="8. 三次握手过程中有哪些不安全性？"></a>8. 三次握手过程中有哪些不安全性？</h2><h3 id="8-1-SYN洪泛攻击"><a href="#8-1-SYN洪泛攻击" class="headerlink" title="8.1 SYN洪泛攻击"></a>8.1 SYN洪泛攻击</h3><p>SYN攻击就是<strong>client在短时间内伪造大量不存在的IP，并向Server发送SYN包</strong>，Server回复确认包，并等待client确认。由于源IP不存在，server需要不断重发直至超时。这些伪造的SYN包将长时间占用半连接队列，导致正常的SYN请求因为队列满而被丢弃，从而引发网络拥塞甚至系统瘫痪。</p>
-<h3 id="8-2-Land-攻击"><a href="#8-2-Land-攻击" class="headerlink" title="8.2 Land 攻击"></a>8.2 Land 攻击</h3><p>当一个主机向服务器发送SYN请求连接，服务器返回ACK和SYN后，攻击者截获ACK和SYN。然后伪装成原始主机继续与服务器进行通信，目标地址和源地址都是目标本身，自己联系自己。</p>
-<h2 id="9-超时重传和快速重传？"><a href="#9-超时重传和快速重传？" class="headerlink" title="9. 超时重传和快速重传？"></a>9. 超时重传和快速重传？</h2><h3 id="9-1-超时重传会设置一个定时器，当超过定时器后，没有收到对方的ACK，就会重发数据，超时重传核心在重传时间RTO的设置。"><a href="#9-1-超时重传会设置一个定时器，当超过定时器后，没有收到对方的ACK，就会重发数据，超时重传核心在重传时间RTO的设置。" class="headerlink" title="9.1 超时重传会设置一个定时器，当超过定时器后，没有收到对方的ACK，就会重发数据，超时重传核心在重传时间RTO的设置。"></a>9.1 超时重传会设置一个定时器，当超过定时器后，没有收到对方的ACK，就会重发数据，超时重传核心在重传时间RTO的设置。</h3><img src="/2022/06/22/TCP-IP%E5%AD%A6%E4%B9%A0/5.png" srcset="/img/loading.gif" lazyload class="" title="超时时间RTO">
-
-<ul>
-<li>当RTO较大时，重发就慢，丢了老半天才重发，效率差</li>
-<li>当RTO较小时，导致可能没有丢就重发，增加网络拥塞</li>
-</ul>
-<p>一般RTO设置为略大于报文往返时间RTT，当多次重传的时候，再次超时，超时时间间隔加倍。</p>
-<h3 id="9-2-快速重传"><a href="#9-2-快速重传" class="headerlink" title="9.2 快速重传"></a>9.2 快速重传</h3><p>超时重传的最大问题是太慢了，需要一直等到超时了才重传。</p>
-<p>快速重传的话，接受者接收到一个乱序的分组，就返回对前一个正确分组的ACK，当发送端连续收到3个相同ACK，就会马上快速重传丢失数据，不必等到超时再重传。</p>
-<img src="/2022/06/22/TCP-IP%E5%AD%A6%E4%B9%A0/6.png" srcset="/img/loading.gif" lazyload class="" title="快重传">
+              <h1 id="std-bind-amp-std-ref的用法"><a href="#std-bind-amp-std-ref的用法" class="headerlink" title="std::bind &amp; std::ref的用法"></a>std::bind &amp; std::ref的用法</h1><p>std::bind 是用来给函数绑定参数的，std::bind总是拷贝传值，调用者可以使用std::ref来实现传引用。</p>
+<p>有3个规则：</p>
+<ol>
+<li>std::bind总是使用值拷贝的形式传参，不管行参是否声明为引用。</li>
+<li>std::bind可以通过std::ref来传引用</li>
+<li>当std::bind通过std::ref来传递引用的时候，如果形参声明为值类型，传递的仍然是值而不是引用</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;functional&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">func</span><span class="hljs-params">(<span class="hljs-type">int</span>&amp; x, <span class="hljs-type">int</span>&amp; y, <span class="hljs-type">int</span> z)</span> </span>&#123;<br>  x++;<br>  y++;<br>  z++;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>  <span class="hljs-type">int</span> a = <span class="hljs-number">1</span>, b = <span class="hljs-number">1</span>, c = <span class="hljs-number">1</span>;<br>  <span class="hljs-comment">// a 传值， b传引用， c传值</span><br>  <span class="hljs-keyword">auto</span> b_func = std::<span class="hljs-built_in">bind</span>(func, a, std::<span class="hljs-built_in">ref</span>(b), std::<span class="hljs-built_in">ref</span>(c));<br>  <span class="hljs-built_in">b_func</span>();<br>  <br>  std::cout &lt;&lt; <span class="hljs-string">&quot;after func a: &quot;</span> &lt;&lt; a &lt;&lt; <span class="hljs-string">&quot;, b: &quot;</span> &lt;&lt; b &lt;&lt; <span class="hljs-string">&quot;, c: &quot;</span> &lt;&lt; c &lt;&lt; std::endl;<br>  <span class="hljs-comment">// a: 1, b : 2, c : 1</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
-
-<h2 id="10-TCP和UDP的区别？"><a href="#10-TCP和UDP的区别？" class="headerlink" title="10. TCP和UDP的区别？"></a>10. TCP和UDP的区别？</h2><ul>
-<li>基于连接与无连接</li>
-<li>对系统资源的要求（TCP较多，UDP较少）</li>
-<li>UDP程序结构较简单</li>
-<li>流模式与数据报模式</li>
-<li>TCP保证数据正确性，UDP可能丢包</li>
-<li>TCP保证数据顺序，UDP不保证</li>
-</ul>
-<h2 id="11-TCP的4个定时器、11个状态、4个算法？"><a href="#11-TCP的4个定时器、11个状态、4个算法？" class="headerlink" title="11. TCP的4个定时器、11个状态、4个算法？"></a>11. TCP的4个定时器、11个状态、4个算法？</h2>
               
             </div>
             <hr/>
@@ -352,7 +304,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/TCP-IP/" class="category-chain-item">TCP/IP</a>
+  <a href="/categories/C/" class="category-chain-item">C++</a>
   
   
 
@@ -379,8 +331,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>TCP/IP学习</div>
-      <div>https://caleb072350.github.io/2022/06/22/TCP-IP学习/</div>
+      <div>std::bind &amp; std::ref</div>
+      <div>https://caleb072350.github.io/2022/08/11/std-bind-std-ref/</div>
     </div>
     <div class="license-meta">
       
@@ -392,7 +344,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年6月22日</div>
+          <div>2022年8月11日</div>
         </div>
       
       
@@ -422,18 +374,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/07/03/c-%E5%BC%80%E6%BA%90%E5%BA%93/" title="c++开源库">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">c++开源库</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/06/15/hello-world/" title="Hello World">
-                        <span class="hidden-mobile">Hello World</span>
+                      <a href="/2022/07/03/nginx%E5%86%85%E5%AD%98%E6%B1%A0%E7%AE%A1%E7%90%86/" title="nginx内存池管理">
+                        <span class="hidden-mobile">nginx内存池管理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

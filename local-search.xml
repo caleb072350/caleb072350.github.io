@@ -4,6 +4,81 @@
   
   
   <entry>
+    <title>std::bind &amp; std::ref</title>
+    <link href="/2022/08/11/std-bind-std-ref/"/>
+    <url>/2022/08/11/std-bind-std-ref/</url>
+    
+    <content type="html"><![CDATA[<h1 id="std-bind-amp-std-ref的用法"><a href="#std-bind-amp-std-ref的用法" class="headerlink" title="std::bind &amp; std::ref的用法"></a>std::bind &amp; std::ref的用法</h1><p>std::bind 是用来给函数绑定参数的，std::bind总是拷贝传值，调用者可以使用std::ref来实现传引用。</p><p>有3个规则：</p><ol><li>std::bind总是使用值拷贝的形式传参，不管行参是否声明为引用。</li><li>std::bind可以通过std::ref来传引用</li><li>当std::bind通过std::ref来传递引用的时候，如果形参声明为值类型，传递的仍然是值而不是引用</li></ol><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;functional&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">func</span><span class="hljs-params">(<span class="hljs-type">int</span>&amp; x, <span class="hljs-type">int</span>&amp; y, <span class="hljs-type">int</span> z)</span> </span>&#123;<br>  x++;<br>  y++;<br>  z++;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>  <span class="hljs-type">int</span> a = <span class="hljs-number">1</span>, b = <span class="hljs-number">1</span>, c = <span class="hljs-number">1</span>;<br>  <span class="hljs-comment">// a 传值， b传引用， c传值</span><br>  <span class="hljs-keyword">auto</span> b_func = std::<span class="hljs-built_in">bind</span>(func, a, std::<span class="hljs-built_in">ref</span>(b), std::<span class="hljs-built_in">ref</span>(c));<br>  <span class="hljs-built_in">b_func</span>();<br>  <br>  std::cout &lt;&lt; <span class="hljs-string">&quot;after func a: &quot;</span> &lt;&lt; a &lt;&lt; <span class="hljs-string">&quot;, b: &quot;</span> &lt;&lt; b &lt;&lt; <span class="hljs-string">&quot;, c: &quot;</span> &lt;&lt; c &lt;&lt; std::endl;<br>  <span class="hljs-comment">// a: 1, b : 2, c : 1</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>C++</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>nginx内存池管理</title>
+    <link href="/2022/07/03/nginx%E5%86%85%E5%AD%98%E6%B1%A0%E7%AE%A1%E7%90%86/"/>
+    <url>/2022/07/03/nginx%E5%86%85%E5%AD%98%E6%B1%A0%E7%AE%A1%E7%90%86/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>C++</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>c++开源库</title>
+    <link href="/2022/07/03/c-%E5%BC%80%E6%BA%90%E5%BA%93/"/>
+    <url>/2022/07/03/c-%E5%BC%80%E6%BA%90%E5%BA%93/</url>
+    
+    <content type="html"><![CDATA[<h1 id="C-一些开源库记录"><a href="#C-一些开源库记录" class="headerlink" title="C++一些开源库记录"></a>C++一些开源库记录</h1><p>STXXL : 用于额外的大型数据集的标准模板库</p><p>Ultimate++ : C++跨平台快速应用程序开发框架</p><p>Windows Template Library : 用于开发Windows应用程序和UI组件的C++库</p><p>Yomm11 : C++11的开放multi-methods</p><h2 id="异步事件循环"><a href="#异步事件循环" class="headerlink" title="异步事件循环"></a>异步事件循环</h2><p>BoostAsio : 用于网络和底层I&#x2F;O编程的跨平台C++库</p><p>libev : 功能齐全，高性能的时间循环，轻微的仿效libevent,但是不再像libevent一样有局限性，也修复了它的一些bug</p><p>libevent: 事件通知库</p><p>libuv : 跨平台异步I&#x2F;O</p><p>Libco : 协程，微信支持8亿用户同时在线的底层IO库，功能强大</p><p>ntyco : 纯C版的协程，代码短小精悍，适合嵌入工程</p><p>libgo:golang风格的并发框架，C++11实现协程库</p><h2 id="网络库"><a href="#网络库" class="headerlink" title="网络库"></a>网络库</h2><p>ACE: C++面向对象网络编程工具包</p><p>Casablanca: C++ REST SDK</p><p>Cpp-netlib: 高级网络编程的开源库框架</p><p>Dyad.c C语言的异步网络</p><p>libCurl : 多协议文件传输库</p><p>Mongooose: 非常轻量级的网络服务器</p><p>Muduo : 用于linux多线程服务器的C++非阻塞网络库</p><p>net_skeleton: C&#x2F;C++的TCP客户端&#x2F;服务端库</p><p>Onion: C语言HTTP服务器库，其设计为轻量级、易使用</p><p>WebSocket++: 基于C++&#x2F;Boost Asio的websocket 客户端&#x2F;服务器库</p><p>ZeroMQ ： 高速、模块化的异步通信库</p><h2 id="TCP-x2F-IP-协议栈"><a href="#TCP-x2F-IP-协议栈" class="headerlink" title="TCP&#x2F;IP 协议栈"></a>TCP&#x2F;IP 协议栈</h2><p>f-stack : 腾讯开源的协议栈，基于DPDK的高性能用户态协议栈</p><p>NtyTcp: 单线程的协议栈，基于netmap,DPDK,rawSocket的实现</p><p>mTCP：针对多核系统的高可扩展性的用户空间TCP&#x2F;IP协议栈</p><p>4.4BSD : unix的协议栈，开源于4.4BSD</p><h2 id="web应用框架"><a href="#web应用框架" class="headerlink" title="web应用框架"></a>web应用框架</h2><p>Nginx: 一个高性能的HTTP和反向代理的web服务器，同时也提供IMAP&#x2F;POP3&#x2F;SMTP服务</p><p>lighttpd: 一款开源的Web服务器软件</p><p>libmicrohttpd : GNU软件下的简单C库的Web服务器，API简单，快速</p><p>Crow: 一个C++微型web框架（灵感来自于Python Flask）</p><p>Wt : 开发Web应用的C++库</p><h2 id="标准库：-算法与函数"><a href="#标准库：-算法与函数" class="headerlink" title="标准库： 算法与函数"></a>标准库： 算法与函数</h2><p>C++ Standard Library : 是一系列类和函数的集合，使用核心语言编写，也是C++ISO标准的一部分</p><p>Standard Template Library : 标准模板库，STL</p><p>C POSIX library : POSIX系统的标准库规范</p><p>ISO C++ Standard Committee : C++标准委员会</p><h2 id="音频库"><a href="#音频库" class="headerlink" title="音频库"></a>音频库</h2><p>ffmpeg</p><h2 id="压缩库"><a href="#压缩库" class="headerlink" title="压缩库"></a>压缩库</h2><p>bzip2</p><p>LZ4</p><h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><p>hiberlite ： 用于Sqlite3的C++对象关系映射</p><p>hiredis: 用于Redis数据库的很简单的C客户端库</p><p>LevelDB : 快速键值存储库</p><p>MySQL++ : 封装了MySQL的C API的C++包装器</p><p>SQLite : 一个完全嵌入式的，功能齐全的关系数据库，只有几百KB，可以正确包含到你的项目中</p><p>Redis : 一个开源的使用ANSI C语言编写的，遵守BSD协议、支持网络、可基于内存亦可持久化的日志型 Key-Value数据库</p><p>MongoDB ： 一个基于分布式的文件存储服务器。</p><h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><p>Boost.Test : Boost测试库</p><p>Catch : C++原生框架，用于单元测试</p><p>CTest : CMake测试驱动程序</p><p>UnitTest++ : 轻量级的C++单元测试库</p><h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><p>C++ B-Tree ： 基于B树数据结构，实现命令内存容器的模板库</p><p>HashMaps： C++中开放寻址哈希表算法的实现</p><h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><p>easylogging++ :: C++日志库</p><p>spdlog : 较新的日志库</p><h2 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h2><p>CJson</p><p>protobuf</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>C++</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>TCP/IP学习</title>
     <link href="/2022/06/22/TCP-IP%E5%AD%A6%E4%B9%A0/"/>
     <url>/2022/06/22/TCP-IP%E5%AD%A6%E4%B9%A0/</url>
