@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>frpc 远程登录</title>
+    <link href="/2023/02/04/frpc-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/"/>
+    <url>/2023/02/04/frpc-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/</url>
+    
+    <content type="html"><![CDATA[<p>systemctl daemon-reload</p><p>frpc.service 在 &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;frpc.service</p><h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>systemctl start frpc</p><h2 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h2><p>systemctl restart frpc</p><h2 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h2><p>systemctl status frpc</p><p>这里可以看到连接的ip地址信息</p><h2 id="设置开机自启"><a href="#设置开机自启" class="headerlink" title="设置开机自启"></a>设置开机自启</h2><p>systemctl enable frpc</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>frp</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>std::bind &amp; std::ref</title>
     <link href="/2022/08/11/std-bind-std-ref/"/>
     <url>/2022/08/11/std-bind-std-ref/</url>
